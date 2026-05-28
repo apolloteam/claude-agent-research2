@@ -18,29 +18,43 @@ client = anthropic.Anthropic(
 SKILLS_DIR = Path(__file__).parent / "custom_skills"
 
 
-def registrar_skills() -> dict[str, str]:
+def registrar_skills():
     """
-    Sube los skills custom a Anthropic y devuelve sus IDs.
-    En producción esto se hace una sola vez y se guardan los IDs.
+    Registra todos los skills custom — UNA SOLA VEZ.
+    TODO: Copiar los IDs a agente.py.
     """
+    
     print("📤 Registrando skills custom...\n")
-    skill_ids = {}
 
-    skills_a_registrar = {
-        "saludo": SKILLS_DIR / "skill_saludo",
-        "ordenar_nombres": SKILLS_DIR / "skill_ordenar_nombres",
-    }
+    skills_a_registrar = [
+        SKILLS_DIR / "skill_saludo",
+        SKILLS_DIR / "skill_ordenar_nombres",
+    ]
 
-    for nombre, path in skills_a_registrar.items():
-        print(f"  Subiendo: {nombre} desde {path}")
-        skill = client.beta.skills.create(
-            display_title=f"Skill {nombre.replace('_', ' ').title()}",
-            files=files_from_dir(str(path)),
-        )
-        skill_ids[nombre] = skill.id
-        print(f"  ✅ Registrado → ID: {skill.id}\n")
+    for path in skills_a_registrar:
+        registrar_skill(path)
 
-    return skill_ids
+
+def registrar_skill(path: Path) -> str | None:
+    """
+    Sube un skill custom a Anthropic y devuelve su ID.
+    Toma el nombre del directorio indicado en path.
+    En producción esto se hace una sola vez y se guarda el ID.
+    """
+    if not path.exists():
+        print(f"  ❌ Path no encontrado: {path}")
+        return None
+
+    nombre = path.name
+    display_title = nombre.replace("_", " ").title()
+
+    print(f"  Subiendo: {nombre} desde {path}")
+    skill = client.beta.skills.create(
+        display_title=display_title,
+        files=files_from_dir(str(path)),
+    )
+    print(f"  ✅ Registrado → ID: {skill.id} | Path: {path}\n")
+    return skill.id
 
 
 def listar_skills():
@@ -72,13 +86,11 @@ def eliminar_skill(skill_id: str):
 
 
 if __name__ == "__main__":
-    # Registramos los skills custom
-    # En producción harías esto UNA SOLA VEZ y guardarías los IDs
-    skill_ids = registrar_skills()
+    #registrar_skills()
 
     # Opcional: listar skills registrados
     # listar_skills()
 
     # Opcional: limpiar los skills creados en este ejemplo
-    # for sid in skill_ids.values():
-    #     eliminar_skill(sid)
+    # listar_skills()  # obtener los IDs primero
+    # eliminar_skill("<skill_id>")

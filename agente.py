@@ -68,8 +68,8 @@ def correr_agente():
     - Reporte de tokens por turno
     """
 
-    saludo_skill_id = "skill_019rneUM39YtWATQemmSmBZb"
-    ordenar_nombres_skill_id = "skill_0138MRHWJ1YQCbxVU4ccUQAw"
+    skill_id_saludo = os.getenv("SKILL_ID_SALUDO")
+    skill_id_ordenar_nombres = os.getenv("SKILL_ID_ORDENAR_NOMBRES")
 
     # Configuración de los 3 skills
     skills_config = [
@@ -77,10 +77,10 @@ def correr_agente():
         {"type": "anthropic", "skill_id": "pdf", "version": "latest"},
 
         # 2. Skill custom simple (saludo)
-        {"type": "custom", "skill_id": saludo_skill_id, "version": "latest"},
+        {"type": "custom", "skill_id": skill_id_saludo, "version": "latest"},
 
         # 3. Skill custom con script (ordenar nombres)
-        {"type": "custom", "skill_id": ordenar_nombres_skill_id, "version": "latest"},
+        {"type": "custom", "skill_id": skill_id_ordenar_nombres, "version": "latest"},
     ]
 
     # Historial vacío al inicio — crecerá turno a turno
