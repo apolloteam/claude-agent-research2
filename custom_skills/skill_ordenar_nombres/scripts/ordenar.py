@@ -1,6 +1,6 @@
 """
 ordenar.py — Ordena una lista de nombres alfabéticamente.
-
+by: Esteban 1
 Uso:
     python ordenar.py --nombres "Carlos,Ana,Beatriz,Ángel" --orden asc
 

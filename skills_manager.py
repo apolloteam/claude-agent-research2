@@ -1,9 +1,12 @@
 import os
+import sys
 from pathlib import Path
-
 import anthropic
 from anthropic.lib import files_from_dir
 from dotenv import load_dotenv
+
+# Asegura que la salida de la consola use UTF-8 para evitar problemas con caracteres especiales (emojis, acentos, etc.).
+sys.stdout.reconfigure(encoding="utf-8")
 
 load_dotenv()
 
@@ -94,3 +97,4 @@ if __name__ == "__main__":
     # Opcional: limpiar los skills creados en este ejemplo
     # listar_skills()  # obtener los IDs primero
     # eliminar_skill("<skill_id>")
+    pass
