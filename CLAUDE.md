@@ -70,7 +70,7 @@ Se configuran en el cliente de `agente.py` vía `default_headers`. El cliente de
 - La descripción en minúsculas y en español.
 - Si el cambio rompe compatibilidad, agregar `!` antes de `:` o footer `BREAKING CHANGE:`.
 - Siempre mostrar el mensaje del commit propuesto y esperar confirmación antes de ejecutarlo.
-- - NUNCA agregar trailers al commit (ni "Co-Authored-By", ni "Generated-by", ni ningún footer automático).
+- NUNCA agregar trailers al commit (ni "Co-Authored-By", ni "Generated-by", ni ningún footer automático).
   
 ## Notas críticas
 
